@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Componentes JSF</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h1>Cadastrar Produto</h1>        
+        <h:form id="produtoForm">
+            <p:growl id="growl" showDetail="true" 
+                     showSummary="false" />
+
+            <p:menubar>
+                <p:menuitem value="Home" 
+                            action="#{produtoController.goToHome}"
+                            icon="pi pi-home" />
+                <p:submenu label="Produtos" icon="pi pi-book">
+                    <p:menuitem value="Listar" 
+                                outcome="/produto/List"/>
+                    <p:menuitem value="Cadastrar" 
+                                outcome="/produto/Create"/>
+
+                </p:submenu>
+            </p:menubar>
+
+            <p:panelGrid columns="2">
+
+                <p:outputLabel for="@next" value="Code" />
+                <p:inputText value="#{produtoController.produto.code}"
+                             required="true" requiredMessage="Informe o Code."/>
+
+                <p:outputLabel for="@next" value="Name" />
+                <p:inputText value="#{produtoController.produto.name}" />
+
+                <p:outputLabel for="@next" value="Description" />
+                <p:inputText value="#{produtoController.produto.description}" />
+
+                <p:outputLabel for="@next" value="Price" />
+                <p:inputNumber value="#{produtoController.produto.price}" />
+
+                <p:outputLabel for="@next" value="Quantity" />
+                <p:inputNumber value="#{produtoController.produto.quantity}" />
+
+                <p:outputLabel for="@next" value="Image" />
+                <p:inputText value="#{produtoController.produto.image}" />
+
+                <p:outputLabel for="@next" value="Rating" />
+                <p:rating value="#{produtoController.produto.rating}" />
+
+                <p:outputLabel for="@next" value="Category" />
+                <p:selectOneMenu value="#{produtoController.produto.categoria}"
+                                 converter="categoriaConverter">
+                    <f:selectItems value="#{produtoController.findAllCategorias()}"
+                                   var="item" itemLabel="#{item.nome}"/>
+                </p:selectOneMenu>
+
+            </p:panelGrid>
+            <p:commandButton value="Cadastrar" 
+                             action="#{produtoController.adicionar}"
+                             update="growl"/>
+
+
+        </h:form>
+
+    </h:body>
+</html>
